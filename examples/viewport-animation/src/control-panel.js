@@ -11,7 +11,7 @@ export default class ControlPanel extends PureComponent {
       <div key={`btn-${index}`} className="input" >
         <input type="radio" name="city"
           id={`city-${index}`}
-          defaultChecked={city.city === 'San Francisco'}
+          defaultChecked={city.city === 'Georgetown'}
           onClick={() => this.props.onViewportChange(city)} />
         <label htmlFor={`city-${index}`}>{city.city}</label>
       </div>
@@ -29,8 +29,8 @@ export default class ControlPanel extends PureComponent {
           <a href="https://github.com/uber/react-map-gl/tree/master/examples/viewport-animation" target="_new">View Code ↗</a>
         </div>
         <hr />
-        
-        { CITIES.filter(city => city.state === 'California').map(this._renderButton) }
+
+        { CITIES.filter(city => city.state === 'test').map(this._renderButton) }
       </Container>
     );
   }

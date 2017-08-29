@@ -20,34 +20,15 @@ function animate() {
 }
 animate();
 
-'use strict'
-
-import turfBearing from '@turf/bearing'
-
-// Calculate bearing from one point to another
-const getBearing = (coord1, coord2) => {
-  const [ point1, point2 ] = [coord1, coord2].map((coord) => {
-    return {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [coord[0], coord[1]]
-      }
-    }
-  })
-  return turfBearing(point1, point2)
-}
-
-
 export default class App extends Component {
 
   state = {
     viewport: {
-      latitude: 38.910337,
-      longitude: -77.04227,
-      zoom: 18,
+      latitude: 37.7751,
+      longitude: -122.4193,
+      zoom: 11,
       bearing: 0,
-      pitch: 60,
+      pitch: 0,
       width: 500,
       height: 500
     }
@@ -77,17 +58,13 @@ export default class App extends Component {
     TWEEN.removeAll();
 
     const {viewport} = this.state;
-    const { longitude: prevLongitude, latitude: prevLatitude } = viewport
 
     new TWEEN.Tween(viewport)
       .to({
         longitude, latitude,
-        zoom: 18,
-        bearing: getBearing(
-          [prevLongitude, prevLatitude],
-          [longitude, latitude])
-      }, 10000)
-      .easing(TWEEN.Easing.Quadratic.InOut)
+        zoom: 11
+      }, 3000)
+      .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate(() => this._onViewportChange(viewport))
       .start();
   };
@@ -96,14 +73,14 @@ export default class App extends Component {
 
   render() {
 
-    const { viewport, settings } = this.state;
+    const {viewport, settings} = this.state;
 
     return (
       <div>
         <MapGL
           {...viewport}
           {...settings}
-          mapStyle="mapbox://styles/nbumbarg/cj5frr9wz2ktl2srxp4dvpv8o"
+          mapStyle="mapbox://styles/mapbox/dark-v9"
           onViewportChange={this._onViewportChange}
           dragToRotate={false}
           mapboxApiAccessToken={token} />
